@@ -1,0 +1,5 @@
+valentinos_magic_beans/.env
+.venv/
+.idea/
+.pytest_cache/
+__pycache__
