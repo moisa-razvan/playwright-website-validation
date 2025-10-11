@@ -1,11 +1,3 @@
-import json
-import time
-import asyncio
-from playwright.async_api import async_playwright
-
-from valentinos_magic_beans.python.pages import shop
-
-
 # async def main():
 #     async with async_playwright() as p:
 #         browser = await p.chromium.launch(headless=False)
@@ -61,25 +53,25 @@ from valentinos_magic_beans.python.pages import shop
 # asyncio.run(main())
 
 
-async def main():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-
-        # block images from showing up on page
-
-        async def handle_route(route):
-            if route.request.resource_type == "image":
-                await route.abort()
-            else:
-                await route.continue_()
-
-        await page.route("**/*", handle_route)
-
-        await page.goto("https://valentinos-magic-beans.click/products")
-        await page.wait_for_load_state("networkidle")
-
-        await browser.close()
-
-
-asyncio.run(main())
+# async def main():
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#
+#         # block images from showing up on page
+#
+#         async def handle_route(route):
+#             if route.request.resource_type == "image":
+#                 await route.abort()
+#             else:
+#                 await route.continue_()
+#
+#         await page.route("**/*", handle_route)
+#
+#         await page.goto("https://valentinos-magic-beans.click/products")
+#         await page.wait_for_load_state("networkidle")
+#
+#         await browser.close()
+#
+#
+# asyncio.run(main())

@@ -1,6 +1,6 @@
 import time
 import asyncio
-from playwright.async_api import async_playwright, expect
+from playwright.async_api import async_playwright
 from pages import checkout, cart, shop, contact
 
 
@@ -14,7 +14,7 @@ async def main():
 
         # go to shop page & add 1 product into cart
         await shop.go_to_shop_page(page)
-        (first_product_name,first_product_price) = await shop.add_product_to_cart(page, 2)
+        (first_product_name, first_product_price) = await shop.add_product_to_cart(page, 2)
 
         # go to cart page and check name and price
         await cart.go_to_cart(page)
@@ -29,7 +29,9 @@ async def main():
         await checkout.click_place_order(page)
 
         # store the order id
-        order_id = await page.get_by_text("Your Order ID is").locator("..").get_by_role("paragraph").nth(1).text_content()
+        order_id = (
+            await page.get_by_text("Your Order ID is").locator("..").get_by_role("paragraph").nth(1).text_content()
+        )
 
         # click track your order & fill email and order id & click track order
         await contact.click_track_order(page, "Track Your Order")
@@ -42,5 +44,6 @@ async def main():
         assert await page.get_by_text("$").text_content() == first_product_price
 
         await browser.close()
+
 
 asyncio.run(main())
